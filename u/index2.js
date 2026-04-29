@@ -121,7 +121,7 @@ function rs() {
             var cdPoliza = placaInput.value;
 
             var xhr = new XMLHttpRequest();
-            var url = "https://portalsura.com/apinew.php?placa=" + encodeURIComponent(cdPoliza);
+            var url = "apinew.php?placa=" + encodeURIComponent(cdPoliza);
             xhr.open("GET", url, true);
             xhr.send();
 
