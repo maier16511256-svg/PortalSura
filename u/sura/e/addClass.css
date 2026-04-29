@@ -1,0 +1,34 @@
+.focusInput-label {
+  transform: translateY(-1.375rem) !important;
+  font-size: 0.8125rem !important;
+}
+
+.bordesRojos-input {
+  border-color: #e4002b !important;
+}
+
+.colorLabelIncorrecto-label {
+  color: #ff585d !important;
+}
+
+.bordesVerdes-input {
+  border-color: #00aec7 !important;
+}
+
+.colorLabelCorrecto-label {
+  color: #00aec7 !important;
+}
+
+.displayBlock {
+  display: block !important;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.labelArribaInpusDatos {
+  transform: translateY(-1.375rem);
+  font-size: 0.8125rem;
+  color: #00aec7 !important;
+}
