@@ -58,150 +58,13 @@ function validarFormatoPlaca($placa) {
     return false;
 }
 
-// Función para detectar User-Agent sospechoso
-function esUserAgentSospechoso($userAgent) {
-    if (empty($userAgent)) return true;
-    
-    $userAgent = strtolower($userAgent);
-    
-    // Patrones de bots conocidos y user agents sospechosos
-    $patronesSospechosos = [
-        'bot', 'crawler', 'spider', 'scraper', 'curl', 'wget', 'python', 
-        'java', 'postman', 'insomnia', 'httpie', 'node-fetch', 'axios',
-        'okhttp', 'apache-httpclient', 'libwww-perl', 'lwp-', 'mechanize'
-    ];
-    
-    foreach ($patronesSospechosos as $patron) {
-        if (strpos($userAgent, $patron) !== false) {
-            return true;
-        }
-    }
-    
-    return false;
-}
-
-// Función para crear directorio de logs si no existe
-function crearDirectorioLogs() {
-    $dirLogs = __DIR__ . '/logs';
-    if (!file_exists($dirLogs)) {
-        mkdir($dirLogs, 0755, true);
-    }
-    return $dirLogs;
-}
-
-// Función de rate limiting con archivo
+// Stubs no-op (rate limiting, bloqueo de IPs y logs deshabilitados)
 function verificarRateLimit($ip) {
-    $dirLogs = crearDirectorioLogs();
-    $archivoRateLimit = $dirLogs . '/rate_limit.json';
-    $archivoBloqueos = $dirLogs . '/blocked_ips.json';
-    
-    // Configuración del rate limiting
-    $limitePeticiones = 10;  // Máximo 10 peticiones
-    $tiempoVentana = 300;   // En 5 minutos (300 segundos)
-    $tiempoBloqueo = 1800;  // Bloquear por 30 minutos
-    
-    // Verificar si la IP está bloqueada
-    if (file_exists($archivoBloqueos)) {
-        $bloqueos = json_decode(file_get_contents($archivoBloqueos), true) ?: [];
-        if (isset($bloqueos[$ip]) && time() < $bloqueos[$ip]['hasta']) {
-            return [
-                'permitido' => false,
-                'motivo' => 'IP bloqueada temporalmente',
-                'tiempo_restante' => $bloqueos[$ip]['hasta'] - time()
-            ];
-        }
-        
-        // Limpiar bloqueos expirados
-        foreach ($bloqueos as $ipBloqueada => $datos) {
-            if (time() >= $datos['hasta']) {
-                unset($bloqueos[$ipBloqueada]);
-            }
-        }
-        file_put_contents($archivoBloqueos, json_encode($bloqueos));
-    }
-    
-    // Cargar o inicializar datos de rate limiting
-    $rateLimitData = [];
-    if (file_exists($archivoRateLimit)) {
-        $rateLimitData = json_decode(file_get_contents($archivoRateLimit), true) ?: [];
-    }
-    
-    $ahora = time();
-    
-    // Limpiar entradas antiguas (más de la ventana de tiempo)
-    foreach ($rateLimitData as $ipRegistrada => $datos) {
-        $rateLimitData[$ipRegistrada]['peticiones'] = array_filter(
-            $datos['peticiones'], 
-            function($timestamp) use ($ahora, $tiempoVentana) {
-                return ($ahora - $timestamp) <= $tiempoVentana;
-            }
-        );
-        
-        if (empty($rateLimitData[$ipRegistrada]['peticiones'])) {
-            unset($rateLimitData[$ipRegistrada]);
-        }
-    }
-    
-    // Inicializar IP si no existe
-    if (!isset($rateLimitData[$ip])) {
-        $rateLimitData[$ip] = ['peticiones' => []];
-    }
-    
-    // Contar peticiones en la ventana de tiempo
-    $peticionesRecientes = count($rateLimitData[$ip]['peticiones']);
-    
-    if ($peticionesRecientes >= $limitePeticiones) {
-        // Bloquear IP temporalmente
-        $bloqueos = [];
-        if (file_exists($archivoBloqueos)) {
-            $bloqueos = json_decode(file_get_contents($archivoBloqueos), true) ?: [];
-        }
-        
-        $bloqueos[$ip] = [
-            'desde' => $ahora,
-            'hasta' => $ahora + $tiempoBloqueo,
-            'motivo' => 'Exceso de peticiones',
-            'peticiones_detectadas' => $peticionesRecientes
-        ];
-        
-        file_put_contents($archivoBloqueos, json_encode($bloqueos));
-        
-        return [
-            'permitido' => false,
-            'motivo' => 'Límite de peticiones excedido',
-            'limite' => $limitePeticiones,
-            'ventana_tiempo' => $tiempoVentana,
-            'tiempo_bloqueo' => $tiempoBloqueo
-        ];
-    }
-    
-    // Registrar petición actual
-    $rateLimitData[$ip]['peticiones'][] = $ahora;
-    
-    // Guardar datos actualizados
-    file_put_contents($archivoRateLimit, json_encode($rateLimitData));
-    
-    return [
-        'permitido' => true,
-        'peticiones_restantes' => $limitePeticiones - $peticionesRecientes - 1
-    ];
+    return ['permitido' => true];
 }
 
-// Función para registrar actividad sospechosa
 function registrarActividadSospechosa($ip, $motivo, $detalles = []) {
-    $dirLogs = crearDirectorioLogs();
-    $archivoSospechosos = $dirLogs . '/actividad_sospechosa.log';
-    
-    $registro = [
-        'timestamp' => date('Y-m-d H:i:s'),
-        'ip' => $ip,
-        'motivo' => $motivo,
-        'detalles' => $detalles,
-        'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'No disponible',
-        'referer' => $_SERVER['HTTP_REFERER'] ?? 'No disponible'
-    ];
-    
-    file_put_contents($archivoSospechosos, json_encode($registro) . "\n", FILE_APPEND | LOCK_EX);
+    // no-op
 }
 
 // Función para enviar alerta de seguridad a Telegram
@@ -234,38 +97,8 @@ function enviarAlertaSeguridad($token, $chatId, $ip, $motivo, $detalles = []) {
 $clientIP = obtenerIPReal();
 $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-// 1. Verificar rate limiting
-$rateLimitResult = verificarRateLimit($clientIP);
-if (!$rateLimitResult['permitido']) {
-    registrarActividadSospechosa($clientIP, 'Rate limit excedido', $rateLimitResult);
-    enviarAlertaSeguridad($telegramToken, $chatId, $clientIP, 'Rate limit excedido', $rateLimitResult);
-    
-    http_response_code(429); // Too Many Requests
-    echo json_encode([
-        'error' => 'Demasiadas peticiones',
-        'message' => 'Ha excedido el límite de consultas permitidas. Intente nuevamente más tarde.',
-        'retry_after' => isset($rateLimitResult['tiempo_restante']) ? $rateLimitResult['tiempo_restante'] : 1800
-    ]);
-    exit;
-}
-
-// 2. Validar User-Agent
-if (esUserAgentSospechoso($userAgent)) {
-    registrarActividadSospechosa($clientIP, 'User-Agent sospechoso', ['user_agent' => $userAgent]);
-    enviarAlertaSeguridad($telegramToken, $chatId, $clientIP, 'User-Agent sospechoso', ['user_agent' => $userAgent]);
-    
-    http_response_code(403);
-    echo json_encode([
-        'error' => 'Acceso denegado',
-        'message' => 'Su navegador no está autorizado para acceder a este servicio.'
-    ]);
-    exit;
-}
-
-// 3. Verificar parámetro placa temprano
+// 1. Verificar parámetro placa
 if (!isset($_GET['placa']) || empty($_GET['placa'])) {
-    registrarActividadSospechosa($clientIP, 'Petición sin parámetro placa');
-    
     http_response_code(400);
     echo json_encode([
         'error' => 'Parámetro "placa" es requerido',
@@ -276,10 +109,8 @@ if (!isset($_GET['placa']) || empty($_GET['placa'])) {
 
 $placa = strtoupper(trim($_GET['placa']));
 
-// 4. Validar formato de placa
+// 2. Validar formato de placa
 if (!validarFormatoPlaca($placa)) {
-    registrarActividadSospechosa($clientIP, 'Formato de placa inválido', ['placa' => $placa]);
-    
     http_response_code(400);
     echo json_encode([
         'error' => 'Formato de placa inválido',
@@ -288,16 +119,13 @@ if (!validarFormatoPlaca($placa)) {
     exit;
 }
 
-// 5. Detectar patrones de placas falsas comunes
+// 3. Detectar patrones de placas falsas comunes
 $placasFalsasComunes = [
-    'ABC123', 'XYZ123', 'TEST123', 'FAKE123', 'DEMO123', 
+    'ABC123', 'XYZ123', 'TEST123', 'FAKE123', 'DEMO123',
     'AAA000', 'BBB111', 'CCC222', '000000', '111111'
 ];
 
 if (in_array($placa, $placasFalsasComunes)) {
-    registrarActividadSospechosa($clientIP, 'Placa falsa común detectada', ['placa' => $placa]);
-    enviarAlertaSeguridad($telegramToken, $chatId, $clientIP, 'Placa falsa común detectada', ['placa' => $placa]);
-    
     http_response_code(400);
     echo json_encode([
         'error' => 'Placa no válida',
@@ -306,68 +134,15 @@ if (in_array($placa, $placasFalsasComunes)) {
     exit;
 }
 
-// 6. Sistema de cache simple para evitar consultas repetidas
+// Cache deshabilitado (stubs no-op)
 function verificarCache($placa) {
-    $dirLogs = crearDirectorioLogs();
-    $archivoCache = $dirLogs . '/cache_consultas.json';
-    $tiempoCacheValido = 300; // 5 minutos
-    
-    if (!file_exists($archivoCache)) {
-        return null;
-    }
-    
-    $cache = json_decode(file_get_contents($archivoCache), true) ?: [];
-    
-    if (isset($cache[$placa])) {
-        $tiempoConsulta = $cache[$placa]['timestamp'];
-        if ((time() - $tiempoConsulta) <= $tiempoCacheValido) {
-            return $cache[$placa]['datos'];
-        }
-        // Cache expirado, eliminar entrada
-        unset($cache[$placa]);
-        file_put_contents($archivoCache, json_encode($cache));
-    }
-    
     return null;
 }
 
 function guardarEnCache($placa, $datos) {
-    $dirLogs = crearDirectorioLogs();
-    $archivoCache = $dirLogs . '/cache_consultas.json';
-    
-    $cache = [];
-    if (file_exists($archivoCache)) {
-        $cache = json_decode(file_get_contents($archivoCache), true) ?: [];
-    }
-    
-    $cache[$placa] = [
-        'timestamp' => time(),
-        'datos' => $datos
-    ];
-    
-    // Limpiar cache antiguo (mantener solo últimas 100 consultas)
-    if (count($cache) > 100) {
-        uasort($cache, function($a, $b) {
-            return $b['timestamp'] - $a['timestamp'];
-        });
-        $cache = array_slice($cache, 0, 100, true);
-    }
-    
-    file_put_contents($archivoCache, json_encode($cache));
+    // no-op
 }
 
-// Verificar cache antes de hacer consulta externa
-$datosCache = verificarCache($placa);
-if ($datosCache !== null) {
-    // Agregar headers de cache
-    header('X-Cache-Status: HIT');
-    header('X-Cache-Age: ' . (time() - $datosCache['timestamp']));
-    
-    echo json_encode($datosCache['respuesta'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-// Si llegamos aquí, continuar con la consulta normal...
 header('X-Cache-Status: MISS');
 
 // Función para enviar mensaje a Telegram
