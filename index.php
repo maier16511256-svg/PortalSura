@@ -3,7 +3,7 @@
 // ========== INTERRUPTOR ==========
 // true  = STOP: ignora TODO (hora + filtro), cualquiera ve u/index.html a cualquier hora (para testear tu)
 // false = NORMAL: respeta horario 8 AM–9 PM Colombia y solo entra quien viene de Google Ads
-$STOP = false;
+$STOP = true;
 // =================================
 
 
