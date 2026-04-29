@@ -1,0 +1,671 @@
+.infovehi {
+  background-color: #fff;
+  font-family: var(--primary-font-family);
+  font-family: var(
+    --vehiculo-summary-secondary-font-family,
+    var(--primary-font-family)
+  );
+}
+@media (min-width: 768px) {
+  .infovehi {
+    background-color: var(--primary);
+    background-color: #0033a0;
+  }
+}
+
+.infovehi1 {
+  padding: 0.5rem 1.875rem;
+  color: var(--vehiculo-summary-active-color, inherit);
+  background-color: var(--secondary);
+  background-color: #00aec7;
+  padding: 0.5rem 1.875rem;
+  width: 112px !important;
+}
+
+.infovehih4 {
+  font-size: 0.875rem;
+  font-size: var(--vehiculo-summary-title-font-size, 0.875rem);
+  font-weight: normal;
+  margin: 0;
+}
+
+.verificarPlac {
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  white-space: normal;
+  word-spacing: normal;
+  line-break: auto;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+  z-index: 1001;
+}
+.verificarPlac2 {
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  white-space: normal;
+  word-spacing: normal;
+  line-break: auto;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+  z-index: 1001;
+}
+
+.verificarPlac2 i {
+  font-size: 1.5rem;
+}
+
+.fa-info::before {
+  content: "\f05a";
+}
+
+.fa-circle-info::before {
+  content: "\ f05a";
+}
+
+.avisoVerificar {
+  width: 10rem;
+  background-color: #eff0f1;
+  color: #201d18;
+  text-align: center;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  margin-left: -5rem;
+  line-height: 1rem;
+  visibility: visible;
+}
+
+.avisoVerificar::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -0.3125rem;
+  border-width: 0.3125rem;
+  border-style: solid;
+  border-color: #eff0f1 transparent transparent transparent;
+}
+
+.spanPlaca {
+  font-size: 1rem;
+  font-size: var(--vehiculo-summary-subtitle-font-size, 1rem);
+  line-height: 1.2rem;
+  font-weight: 700;
+  font-family: Roboto;
+  text-transform: uppercase;
+}
+
+.spanPlaca::after {
+  content: "";
+  position: absolute;
+  border-top: 0.5rem solid #fff;
+  border-left: 0.375rem solid transparent;
+  border-right: 0.375rem solid transparent;
+  width: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .spanPlaca:after {
+    border-left: 1.8rem solid var(--secondary);
+    border-left: 1.8rem solid var(--vehiculo-summary-active-bg-color, #00aec7);
+    border-top: 2rem solid transparent;
+    border-bottom: 1.8rem solid transparent;
+    bottom: 0;
+    right: -2.16rem;
+    left: auto;
+  }
+}
+
+.h4mark {
+  font-size: 0.875rem;
+  font-size: var(--vehiculo-summary-title-font-size, 0.875rem);
+  font-weight: normal;
+  margin: 0;
+}
+
+.marcavehi {
+  font-size: 1rem;
+  font-size: var(--vehiculo-summary-subtitle-font-size, 1rem);
+  line-height: 1.2rem;
+  font-weight: 700;
+  font-family: Roboto;
+}
+
+.datosdelvehi {
+  font-family: var(--primary-font-mobile);
+  font-size: 1.3rem;
+  font-size: var(--vehiculo-tomador-form-title-font-size, 1.3rem);
+  font-weight: 700;
+  border-bottom: 0.125rem solid #eff0f1;
+  color: var(--primary);
+  color: #0033a0;
+}
+
+.vijaja {
+  border: 1px solid #bebebe;
+  border-radius: 4px;
+  position: relative;
+}
+
+.veilabel {
+  font-family: var(
+    --vehiculo-information-label-font-family,
+    var(--primary-font-family-bold)
+  );
+  position: absolute;
+  left: 8px;
+  top: -13px;
+  color: var(--secondary);
+  color: var(--vehiculo-detail-label-color, var(--secondary));
+  font-size: 14px;
+  background: #fff;
+}
+
+.infocuadrohprta {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: 0.25rem;
+  color: #727272;
+  color: var(--vehiculo-information, #727272);
+  list-style: none;
+  font-size: 0.875rem;
+  font-size: var(--vehicle-information-list-font-size, 0.875rem);
+}
+
+.dtomadorh3 {
+  font-family: var(--primary-font-mobile);
+  font-size: 1.3rem;
+  font-size: var(--vehiculo-tomador-form-title-font-size, 1.3rem);
+  font-weight: 700;
+  border-bottom: 0.125rem solid #eff0f1;
+  color: var(--primary);
+  color: #0033a0;
+}
+
+.fechahptas {
+  margin-bottom: 1.7rem;
+}
+
+.datepickerClass {
+  width: 100%;
+  background: #fff;
+  border: 0.0625rem solid var(--form-material-input-border-color, #d2d2d2) !important;
+  outline: none !important;
+  color: #000;
+  font-size: 1rem;
+  border-radius: 0.25rem !important;
+  font-family: var(--font-family-form-material, var(--font-family-secondary));
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  color: var(--form-material-text-color-valid, #000);
+}
+
+.cf1 {
+  border-color: #00aec7 !important;
+  color: #000;
+  outline: none;
+}
+
+.fechahptaslabel {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+  transform: translateY(-1.375rem);
+  font-size: 0.8125rem;
+  color: #00aec7 !important;
+}
+
+.ok1span {
+  background-color: var(--color-breadcrumb-success) !important;
+  margin-right: 0px !important;
+}
+
+.nikefa {
+  color: var(--breadcrumb-check-color);
+}
+
+.nikefa::before {
+  content: "\f00c";
+}
+
+.ok1btn {
+  color: #0033a0;
+}
+
+.ok1spand {
+  display: inline-block;
+  height: 22px;
+  width: 22px;
+  background-color: #dfdfdf;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--breadcrumb-text-color);
+  text-align: center;
+  background-color: var(--breadcrumb-selected-color);
+  color: var(--color-breadcrumb-step-active);
+}
+
+.ok1btnd {
+  display: inline-block;
+  font-size: 0.8rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  color: var(--color-breadcrumb);
+  color: var(--breadcrumb-text-color-active, var(--breadcrumb-text-color));
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .ok1btnd {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 768px) {
+  .cuadroPagar {
+    position: sticky;
+    top: 1.25rem;
+  }
+}
+
+.tarifamalparida {
+  background-color: var(--descuentos-box-bg-color, #eff0f1);
+  border-radius: 0.44rem;
+  font-size: 0.8rem;
+  box-shadow: none;
+  box-shadow: var(--descuentos-box-box-shadow, none);
+}
+
+.descuentodurohpta {
+  color: #0033a0;
+  font-size: 1.1em;
+  line-height: 2em;
+}
+
+.cajitaprecio {
+  font-family: var(--primary-font-family);
+  font-family: var(
+    --vehiculo-summary-secondary-font-family,
+    var(--primary-font-family)
+  );
+  font-size: 1.1em;
+  font-size: var(--descuentos-total-price-font-size, 1.15em);
+  font-weight: 700 !important;
+  font-family: Roboto;
+}
+
+.tyc {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.parrafoTarifa p {
+  color: var(--color-terminos-y-condiciones, #727272);
+  font-size: 1rem;
+  font-size: var(--tarifas-terminos-font-size, 1rem);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btnComprar {
+  background-color: var(--bg-color-button-secondary);
+  font-size: 1.375rem;
+  font-size: var(--button-secondary-font-size, 1.375rem);
+  color: #0033a0;
+  font-weight: 600;
+  font-weight: var(--button-secondary-font-weight, 600);
+  border: 0;
+  border-radius: 3.125rem;
+  border-radius: var(--button-secondary-border-radius, 3.125rem);
+  width: 100%;
+  max-width: 12rem;
+  max-width: var(--button-secondary-max-width, 12rem);
+  padding: 0.75rem 2.8rem;
+  padding: var(--button-secondary-padding, 0.75rem 2.8rem);
+  text-transform: capitalize;
+  text-transform: var(--button-secondary-text-transform, capitalize);
+  border: var(--button-secondary-border);
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.5;
+}
+
+.close {
+  color: var(--primary) !important;
+}
+
+.modal .close {
+  outline: none;
+  color: var(--sura-color-close-modal, #0033a0);
+  opacity: 1 !important;
+  font-size: 1.6rem;
+  right: 1rem;
+  top: 0.8rem;
+  z-index: 1;
+}
+
+.modalCenter {
+  color: #464646;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.modalCenter h5 {
+  color: #333;
+  font-family: Roboto;
+  letter-spacing: 0rem;
+  font-size: 1.125rem;
+  margin-top: 1.3rem;
+  font-weight: bold;
+}
+
+.placaModalDiv {
+  font-size: 2.5rem;
+  background-color: var(--placa-bg-color);
+  border-radius: 0.313rem;
+}
+
+.placaModalDiv span {
+  font-family: var(primary-semibold-font-family);
+  color: #0033a0;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modalCenter p {
+  font-size: 1rem;
+  color: var(--font-title-color);
+  letter-spacing: 0rem;
+  font-family: "Roboto";
+  line-height: 1.2rem;
+  font-weight: 700;
+}
+
+.botonesModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn1modal {
+  font-family: var(--primary-semibold-font-family);
+  color: var(--primary);
+  color: #0033a0;
+  font-size: 1rem;
+  border: 0.125rem solid var(--primary);
+  border: var(--condiciones-button-border, 0.125rem solid #0033a0);
+  border-radius: 3.125rem;
+  text-align: center;
+  background-color: transparent;
+  background-color: var(--button-background-color-default, transparent);
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  -webkit-text-decoration: var(--condiciones-button-text-decoration, none);
+  text-decoration: var(--condiciones-button-text-decoration, none);
+  font-weight: 900;
+}
+
+.btn2modal {
+  background-color: #0033a0;
+  color: var(--font-button-white-color);
+  border: 0;
+  border-radius: 3.125rem;
+  border-radius: var(--button-secondary-border-radius, 3.125rem);
+  max-width: 12rem;
+  max-width: var(--button-secondary-max-width, 12rem);
+  padding: 0.7rem 2.1rem;
+  padding: var(--button-secondary-padding, 0.7rem 2.1rem);
+  text-transform: capitalize;
+  text-transform: var(--button-secondary-text-transform, capitalize);
+  border: var(--button-secondary-border);
+  font-size: 1rem;
+  font-family: var(--primary-semibold-font-family);
+}
+#typeDocument.active {
+  border-color: #00aec7 !important;
+  color: #000;
+  outline: none;
+}
+
+.labelDni2 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+.labelDni3 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni4 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni5 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni6 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni7 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni8 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni9 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni10 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.labelDni11 {
+  font-family: var(--font-family-form-label, var(--font-family-secondary));
+  transition: all 0.15s ease-in-out;
+  font-size: 1rem;
+  position: absolute;
+  pointer-events: none;
+  color: var(--form-material-label-color, #999999);
+  background: #fff;
+}
+
+.tycmalparido::before {
+  pointer-events: none;
+  background-color: #fff;
+  border: 1px solid #adb5bd;
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  border-radius: 0.25rem;
+  color: #fff;
+  border-color: #007bff !important;
+  background-color: #007bff !important;
+}
+
+.tycmalparido::after {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: 50% / 50% 50% no-repeat;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e") !important;
+}
+
+.btnComprar:hover {
+  background-color: #00aec7 !important;
+  color: #fff !important;
+}
+
+.bodylamondamia {
+  color: #464646;
+  font-size: 1.25rem;
+  text-align: left;
+  font-family: "Barlow";
+  font-size: 20px;
+}
+
+.btnEntendidoModalW {
+  font-family: Barlow;
+  background-color: var(--sura-background-color-modal-button, #0033a0);
+  font-size: 1rem;
+  color: #0033a0;
+  font-weight: 800;
+  border: 0;
+  border-radius: 3.125rem;
+  padding: 0.5rem 2.5rem;
+  margin-top: 1rem;
+}
+
+.colorBlueUlJaja a {
+  color: #0033a0;
+}
+
+.rojoServer {
+  color: #ff585d;
+  font-size: 4rem;
+}
+
+.h4-11111 {
+  color: #ff585d;
+  font-size: 2.5rem;
+}
+
+.h4-22222 {
+  font-weight: 400;
+  color: #ff585d;
+  color: var(--color-title-modal-error, #ff585d);
+  font-size: 2.5rem;
+}
+
+.pErrorserver {
+  font-size: 1.25rem;
+  line-height: 1.4rem;
+  color: var(--color-description-modal-error);
+}
+
+.btnAceptarModalSotoVigente {
+  font-family: Barlow;
+  background-color: var(--sura-background-color-modal-button, #0033a0);
+  font-size: 1rem;
+  color: #0033a0;
+  font-weight: 700;
+  border: 0;
+  border-radius: 3.125rem;
+  padding: 0.5rem 2.5rem;
+  margin-top: 1rem;
+}

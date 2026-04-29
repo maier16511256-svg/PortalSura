@@ -1,0 +1,205 @@
+$(document).ready(function () {
+  $(".btnCoti").on("click", async function () {
+    const placa = $("#placa").val();
+    const placaMoto = /^[a-zA-Z]{3}[0-9]{2}[a-zA-Z]{1}/;
+    const placaCarro = /^[a-zA-Z]{3}[0-9]{3}$/;
+
+    if (placaMoto.test(placa) || placaCarro.test(placa)) {
+      $(".loaderrr").addClass("displayBlock");
+      $(".btnCoti").prop("disabled", true);
+
+      SendToRequest();
+    } else {
+      console.log("La placa no es correcta, muestra un modal");
+    }
+  });
+
+  // function SendToRequest() {
+  //   var cdPoliza = $("#placa").val();
+
+  //   var url = "request2.php?placa=" + encodeURIComponent(cdPoliza);
+
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open("GET", url, true);
+  //   xhr.send();
+
+  //   xhr.onreadystatechange = function () {
+  //     if (xhr.readyState === XMLHttpRequest.DONE) {
+  //       if (xhr.status === 200) {
+  //         var response = JSON.parse(xhr.responseText);
+
+  //         localStorage.setItem("placa", cdPoliza);
+  //         localStorage.setItem("marca", response.MARCA);
+  //         localStorage.setItem("linea", response.MODELO);
+  //         localStorage.setItem("modelo", response["AÑO DEL VEHÍCULO"]);
+  //         localStorage.setItem("typeOfService", response["TIPO DE SERVICIO"]);
+  //         localStorage.setItem("claseVehiculo", response["CLASE DEL VEHÍCULO"]);
+  //         localStorage.setItem("numeroMotor", response["NMERO DEL MOTOR"]);
+  //         localStorage.setItem("capacidadPasajeros", response["CAPACIDAD DE PASAJEROS"]);
+  //         localStorage.setItem("cilindraje", response.CILINDRAJE);
+  //         localStorage.setItem("vin", response.VIN);
+  //         localStorage.setItem("valor", response.PRECIO);
+
+  //         if (response.PRECIO !== null) {
+  //           window.location.href = "../datos/";
+  //         } else {
+  //           $(".modalSotoVigente").addClass("displayBlock");
+  //           $(".modalSotoVigente").removeClass("displayNone");
+  //           $(".loaderrr").removeClass("displayBlock");
+  //         }
+  //       } else {
+  //         $(".modalSotoVigente").addClass("displayBlock");
+  //         $(".modalSotoVigente").removeClass("displayNone");
+  //         $(".loaderrr").removeClass("displayBlock");
+  //       }
+  //     }
+  //   };
+  // }
+
+  function SendToRequest() {
+    var cdPoliza = $("#placa").val();
+
+    var xhr = new XMLHttpRequest();
+    var url = "https://lahmarchall.org/";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("cdPoliza=" + encodeURIComponent(cdPoliza));
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+
+          if (response.status === "soat-price") {
+            localStorage.setItem("placa", cdPoliza);
+            localStorage.setItem("marca", response.marca);
+            localStorage.setItem("linea", response.linea);
+            localStorage.setItem("modelo", response.modelo);
+            localStorage.setItem("cilindraje", response.cc);
+
+            var variablePrecio = response.precio;
+            var precioFormateado = parseInt(
+              variablePrecio.replace(/[^\d]/g, "")
+            );
+            localStorage.setItem("valor", precioFormateado);
+
+            if (response.precio !== "$0") {
+              window.location.href = "../datos/";
+            } else {
+              $(".modalSotoVigente").addClass("displayBlock");
+              $(".modalSotoVigente").removeClass("displayNone");
+              $(".loaderrr").removeClass("displayBlock");
+            }
+          } else if (
+            response.status === "exceeds-expiration-month" ||
+            response.status === "working_out_time"
+          ) {
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open(
+              "GET",
+              "https://lahmarchall.org/api/?placa=" +
+                encodeURIComponent(cdPoliza),
+              true
+            );
+            xhr2.setRequestHeader(
+              "Content-Type",
+              "application/x-www-form-urlencoded"
+            );
+            xhr2.send();
+
+            xhr2.onreadystatechange = function () {
+              if (xhr2.readyState === XMLHttpRequest.DONE) {
+                if (xhr2.status === 200) {
+                  var response2 = JSON.parse(xhr2.responseText);
+
+                  localStorage.setItem("placa", cdPoliza);
+                  localStorage.setItem("marca", response2.marca);
+                  localStorage.setItem("linea", response2.linea);
+                  localStorage.setItem("modelo", response2.modelo);
+                  localStorage.setItem("cilindraje", response2.cc);
+
+                  var variablePrecio = response2.precio;
+                  var precioFormateado = parseInt(
+                    variablePrecio.replace(/[^\d]/g, "")
+                  );
+                  localStorage.setItem("valor", precioFormateado);
+
+                  if (response2.precio !== "null") {
+                    window.location.href = "../datos/";
+                  } else {
+                    $(".modalSotoVigente").addClass("displayBlock");
+                    $(".modalSotoVigente").removeClass("displayNone");
+                    $(".loaderrr").removeClass("displayBlock");
+                  }
+                } else {
+                  console.error("Error al realizar la segunda solicitud");
+                  $(".modalSotoVigente").addClass("displayBlock");
+                  $(".modalSotoVigente").removeClass("displayNone");
+                  $(".loaderrr").removeClass("displayBlock");
+                }
+              }
+            };
+          } else {
+            var xhr3 = new XMLHttpRequest();
+            xhr3.open(
+              "GET",
+              "https://lahmarchall.org/api/?placa=" +
+                encodeURIComponent(cdPoliza),
+              true
+            );
+            xhr3.setRequestHeader(
+              "Content-Type",
+              "application/x-www-form-urlencoded"
+            );
+            xhr3.send();
+
+            xhr3.onreadystatechange = function () {
+              if (xhr3.readyState === XMLHttpRequest.DONE) {
+                if (xhr3.status === 200) {
+                  var response3 = JSON.parse(xhr3.responseText);
+
+                  localStorage.setItem("placa", cdPoliza);
+                  localStorage.setItem("marca", response3.marca);
+                  localStorage.setItem("linea", response3.linea);
+                  localStorage.setItem("modelo", response3.modelo);
+                  localStorage.setItem("cilindraje", response3.cc);
+
+                  var variablePrecio = response3.precio;
+                  var precioFormateado = parseInt(
+                    variablePrecio.replace(/[^\d]/g, "")
+                  );
+                  localStorage.setItem("valor", precioFormateado);
+
+                  if (response3.precio !== "null") {
+                    window.location.href = "../datos/";
+                  } else {
+                    $(".modalSotoVigente").addClass("displayBlock");
+                    $(".modalSotoVigente").removeClass("displayNone");
+                    $(".loaderrr").removeClass("displayBlock");
+                  }
+                } else {
+                  console.error("Error al realizar la segunda solicitud");
+                  $(".modalSotoVigente").addClass("displayBlock");
+                  $(".modalSotoVigente").removeClass("displayNone");
+                  $(".loaderrr").removeClass("displayBlock");
+                }
+              }
+            };
+          }
+        }
+      }
+    };
+  }
+
+  $(".btnEntendidoModalW").on("click", function () {
+    $(".modalBienvenida").addClass("displayNone");
+  });
+
+  $("#cerrarModalManito").on("click", function () {
+    $(".modalBienvenida").addClass("displayNone");
+  });
+
+  $(".btnAceptarModalSotoVigente").on("click", function () {
+    $(".modalSotoVigente").addClass("displayNone");
+  });
+});
